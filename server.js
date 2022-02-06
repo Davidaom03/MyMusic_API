@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import songsRoutes from './routes/songs.js';
 import mongoose from 'mongoose';
-
+import cors from 'cors';
 
 const PORT = 4000;
 const app = express();
@@ -22,6 +22,7 @@ mongoose.connect(url, {
     process.exit();
 });
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/songs', songsRoutes);
 
