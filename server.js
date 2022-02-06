@@ -1,19 +1,28 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import songsRoutes from './routes/songs.js';
+import mongoose from 'mongoose';
 
-const app = express();
+
 const PORT = 4000;
+const app = express();
+const url = 'mongodb://localhost/MyMusic';
+
+// mongoose.connect(url, {useNewUrlParser:true});
+// const con = mongoose.connection;
+// con.on('open', () => console.log('Conected to MONGODB'));
+
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then( () => console.log("MONGODB is connected") )
+.catch( err => {
+    console.log("Error connecting to MongoDB.", err);
+    process.exit();
+});
 
 app.use(bodyParser.json());
-
 app.use('/songs', songsRoutes);
-
-
-// testing
-app.get('/', (req, res) => {
-    console.log('TESTING /');
-    res.send('Hello from home page');
-});
 
 app.listen(PORT, () => console.log(`server running on port http://localhost:${PORT}`));

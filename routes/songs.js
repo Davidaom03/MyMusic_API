@@ -5,7 +5,7 @@ import { getSong, getSongs, postSong, deleteSong, patchSong } from "../controlle
 const router = express.Router();
 
 // server.js has the initial path to /songs for all songs
-router.get('/', getSongs);
+router.get('/',  getSongs);
 
 router.post('/', postSong);
 
